@@ -4,6 +4,7 @@ import android.text.format.DateUtils;
 
 import com.coinomi.core.coins.BitcoinMain;
 import com.coinomi.core.coins.BitcoinTest;
+import com.coinomi.core.coins.CanadaeCoinMain;
 import com.coinomi.core.coins.BlackcoinMain;
 import com.coinomi.core.coins.CannacoinMain;
 import com.coinomi.core.coins.CoinID;
@@ -23,12 +24,16 @@ import com.coinomi.core.coins.NamecoinMain;
 import com.coinomi.core.coins.NuBitsMain;
 import com.coinomi.core.coins.NuSharesMain;
 import com.coinomi.core.coins.PeercoinMain;
+import com.coinomi.core.coins.NovacoinMain;
+import com.coinomi.core.coins.ParkbyteMain;
 import com.coinomi.core.coins.ReddcoinMain;
 import com.coinomi.core.coins.RubycoinMain;
 import com.coinomi.core.coins.UroMain;
 import com.coinomi.core.coins.NeoscoinMain;
 import com.coinomi.core.coins.JumbucksMain;
 import com.coinomi.core.coins.VertcoinMain;
+import com.coinomi.core.coins.VpncoinMain;
+import com.coinomi.core.coins.ShadowCashMain;
 import com.coinomi.core.network.CoinAddress;
 import com.coinomi.stratumj.ServerAddress;
 import com.google.common.collect.ImmutableList;
@@ -46,17 +51,18 @@ import java.util.concurrent.TimeUnit;
  */
 public class Constants {
 
-    public static final int SEED_ENTROPY_DEFAULT = 160;
+    public static final int SEED_ENTROPY_DEFAULT = 192;
     public static final int SEED_ENTROPY_EXTRA = 256;
 
     public static final String ARG_SEED = "seed";
-    public static final String ARG_SEED_PROTECT = "seed_protect";
     public static final String ARG_PASSWORD = "password";
+    public static final String ARG_SEED_PASSWORD = "seed_password";
     public static final String ARG_EMPTY_WALLET = "empty_wallet";
     public static final String ARG_SEND_TO_ADDRESS = "send_to_address";
     public static final String ARG_SEND_TO_COIN_TYPE = "send_to_coin_type";
     public static final String ARG_SEND_TO_ACCOUNT_ID = "send_to_account_id";
     public static final String ARG_SEND_VALUE = "send_value";
+    public static final String ARG_TX_MESSAGE = "tx_message";
     public static final String ARG_COIN_ID = "coin_id";
     public static final String ARG_ACCOUNT_ID = "account_id";
     public static final String ARG_MULTIPLE_COIN_IDS = "multiple_coin_ids";
@@ -71,7 +77,7 @@ public class Constants {
     public static final String ARG_URI = "test_wallet";
 
     public static final String WALLET_FILENAME_PROTOBUF = "wallet";
-    public static final long WALLET_WRITE_DELAY = 3;
+    public static final long WALLET_WRITE_DELAY = 5;
     public static final TimeUnit WALLET_WRITE_DELAY_UNIT = TimeUnit.SECONDS;
 
     public static final long STOP_SERVICE_AFTER_IDLE_SECS = 30 * 60; // 30 mins
@@ -110,7 +116,7 @@ public class Constants {
                                                     new ServerAddress("doge-cce-2.coinomi.net", 5003)),
             new CoinAddress(DogecoinTest.get(),     new ServerAddress("doge-testnet-cce-1.coinomi.net", 15003),
                                                     new ServerAddress("doge-testnet-cce-2.coinomi.net", 15003)),
-			new CoinAddress(DogecoindarkMain.get(), new ServerAddress("electrum-doged.space", 50001),
+            new CoinAddress(DogecoindarkMain.get(), new ServerAddress("electrum-doged.space", 50001),
                                                     new ServerAddress("electrum-doged.space", 50001)),
             new CoinAddress(DogecoindarkTest.get(), new ServerAddress("electrum-doged.space", 50003),
                                                     new ServerAddress("electrum-doged.space", 50003)),
@@ -148,13 +154,22 @@ public class Constants {
                                                     new ServerAddress("dgb-cce-2.coinomi.net", 5023)),
             // 5024 primecoin
             // 5025 clams
-            // 5026 shadowcoin
+            new CoinAddress(ShadowCashMain.get(),   new ServerAddress("sdc-cce-1.coinomi.net", 5026),
+                                                    new ServerAddress("sdc-cce-2.coinomi.net", 5026)),
             new CoinAddress(NeoscoinMain.get(),     new ServerAddress("neos-cce-1.coinomi.net", 5027),
                                                     new ServerAddress("neos-cce-2.coinomi.net", 5027)),
             new CoinAddress(VertcoinMain.get(),     new ServerAddress("vtc-cce-1.coinomi.net", 5028),
                                                     new ServerAddress("vtc-cce-2.coinomi.net", 5028)),
             new CoinAddress(JumbucksMain.get(),     new ServerAddress("jbs-cce-1.coinomi.net", 5029),
-                                                    new ServerAddress("jbs-cce-2.coinomi.net", 5029))
+                                                    new ServerAddress("jbs-cce-2.coinomi.net", 5029)),
+            new CoinAddress(VpncoinMain.get(),      new ServerAddress("vpn-cce-1.coinomi.net", 5032),
+                                                    new ServerAddress("vpn-cce-2.coinomi.net", 5032)),
+            new CoinAddress(CanadaeCoinMain.get(),  new ServerAddress("cdn-cce-1.coinomi.net", 5033),
+                                                    new ServerAddress("cdn-cce-2.coinomi.net", 5033)),
+            new CoinAddress(NovacoinMain.get(),     new ServerAddress("nvc-cce-1.coinomi.net", 5034),
+                                                    new ServerAddress("nvc-cce-2.coinomi.net", 5034)),
+            new CoinAddress(ParkbyteMain.get(),     new ServerAddress("pkb-cce-1.coinomi.net", 5035),
+                                                    new ServerAddress("pkb-cce-2.coinomi.net", 5035))
     );
 
     public static final HashMap<CoinType, Integer> COINS_ICONS;
@@ -165,7 +180,7 @@ public class Constants {
         COINS_ICONS.put(CoinID.BITCOIN_TEST.getCoinType(), R.drawable.bitcoin_test);
         COINS_ICONS.put(CoinID.DOGECOIN_MAIN.getCoinType(), R.drawable.dogecoin);
         COINS_ICONS.put(CoinID.DOGECOIN_TEST.getCoinType(), R.drawable.dogecoin_test);
-		COINS_ICONS.put(CoinID.DOGECOINDARK_MAIN.getCoinType(), R.drawable.dogecoindark);
+        COINS_ICONS.put(CoinID.DOGECOINDARK_MAIN.getCoinType(), R.drawable.dogecoindark);
         COINS_ICONS.put(CoinID.DOGECOINDARK_TEST.getCoinType(), R.drawable.dogecoindark_test);
         COINS_ICONS.put(CoinID.LITECOIN_MAIN.getCoinType(), R.drawable.litecoin);
         COINS_ICONS.put(CoinID.LITECOIN_TEST.getCoinType(), R.drawable.litecoin_test);
@@ -186,13 +201,18 @@ public class Constants {
         COINS_ICONS.put(CoinID.NEOSCOIN_MAIN.getCoinType(), R.drawable.neoscoin);
         COINS_ICONS.put(CoinID.VERTCOIN_MAIN.getCoinType(), R.drawable.vertcoin);
         COINS_ICONS.put(CoinID.JUMBUCKS_MAIN.getCoinType(), R.drawable.jumbucks);
+        COINS_ICONS.put(CoinID.VPNCOIN_MAIN.getCoinType(), R.drawable.vpncoin);
+        COINS_ICONS.put(CoinID.NOVACOIN_MAIN.getCoinType(), R.drawable.novacoin);
+        COINS_ICONS.put(CoinID.CANADAECOIN_MAIN.getCoinType(), R.drawable.canadaecoin);
+        COINS_ICONS.put(CoinID.SHADOWCASH_MAIN.getCoinType(), R.drawable.shadowcash);
+        COINS_ICONS.put(CoinID.PARKBYTE_MAIN.getCoinType(), R.drawable.parkbyte);
 
         COINS_BLOCK_EXPLORERS = new HashMap<CoinType, String>();
         COINS_BLOCK_EXPLORERS.put(CoinID.BITCOIN_MAIN.getCoinType(), "https://blockchain.info/tx/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.BITCOIN_TEST.getCoinType(), "https://chain.so/tx/BTCTEST/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.DOGECOIN_MAIN.getCoinType(), "https://chain.so/tx/DOGE/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.DOGECOIN_TEST.getCoinType(), "https://chain.so/tx/DOGETEST/%s");
-		COINS_BLOCK_EXPLORERS.put(CoinID.DOGECOINDARK_MAIN.getCoinType(), "http://darkchain.link/tx/%s");
+        COINS_BLOCK_EXPLORERS.put(CoinID.DOGECOINDARK_MAIN.getCoinType(), "http://darkchain.link/tx/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.DOGECOINDARK_TEST.getCoinType(), "http://darkchain.link/tx/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.LITECOIN_MAIN.getCoinType(), "http://ltc.blockr.io/tx/info/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.LITECOIN_TEST.getCoinType(), "https://chain.so/tx/LTCTEST/%s");
@@ -214,6 +234,11 @@ public class Constants {
         COINS_BLOCK_EXPLORERS.put(CoinID.NEOSCOIN_MAIN.getCoinType(), "http://explorer.infernopool.com/tx/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.VERTCOIN_MAIN.getCoinType(), "https://bitinfocharts.com/vertcoin/tx/%s");
         COINS_BLOCK_EXPLORERS.put(CoinID.JUMBUCKS_MAIN.getCoinType(), "http://explorer.getjumbucks.com/tx/%s");
+        COINS_BLOCK_EXPLORERS.put(CoinID.VPNCOIN_MAIN.getCoinType(), "https://blockexperts.com/vpn/tx/%s");
+        COINS_BLOCK_EXPLORERS.put(CoinID.NOVACOIN_MAIN.getCoinType(), "http://explorer.novaco.in/tx/%s");
+        COINS_BLOCK_EXPLORERS.put(CoinID.CANADAECOIN_MAIN.getCoinType(), "http://explorer.canadaecoin.ca/tx/%s");
+        COINS_BLOCK_EXPLORERS.put(CoinID.SHADOWCASH_MAIN.getCoinType(), "http://shadowchain.info/tx/%s");
+        COINS_BLOCK_EXPLORERS.put(CoinID.PARKBYTE_MAIN.getCoinType(), "https://chainz.cryptoid.info/pkb/tx.dws?%s");
     }
 
     public static final CoinType DEFAULT_COIN = BitcoinMain.get();
@@ -227,27 +252,32 @@ public class Constants {
     public static final List<CoinType> SUPPORTED_COINS = ImmutableList.of(
             BitcoinMain.get(),
             DogecoinMain.get(),
-			DogecoindarkMain.get(),
+            DogecoindarkMain.get(),
             LitecoinMain.get(),
+            DashMain.get(),
             NuBitsMain.get(),
             PeercoinMain.get(),
-            DashMain.get(),
             NamecoinMain.get(),
             BlackcoinMain.get(),
             MonacoinMain.get(),
             NuSharesMain.get(),
+            NovacoinMain.get(),
+            VpncoinMain.get(),
             VertcoinMain.get(),
+            ShadowCashMain.get(),
             FeathercoinMain.get(),
-            RubycoinMain.get(),
             ReddcoinMain.get(),
             DigibyteMain.get(),
+            RubycoinMain.get(),
             DigitalcoinMain.get(),
             JumbucksMain.get(),
-            NeoscoinMain.get(),
+            CanadaeCoinMain.get(),
             CannacoinMain.get(),
+            NeoscoinMain.get(),
+            ParkbyteMain.get(),
             BitcoinTest.get(),
             LitecoinTest.get(),
-            DogecoinTest.get()
-			DogecoindarkTest.get()
+            DogecoinTest.get(),
+            DogecoindarkTest.get()
     );
 }
